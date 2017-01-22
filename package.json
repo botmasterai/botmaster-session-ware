@@ -1,0 +1,26 @@
+{
+  "name": "botmaster-context-session-ware",
+  "version": "0.0.1",
+  "description": "standard botmaster session ware for context",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/botmasterai/botmaster-context-session-ware.git"
+  },
+  "keywords": [
+    "botmaster",
+    "chat",
+    "bots",
+    "session",
+    "context"
+  ],
+  "author": "Jonathan R Wickens",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/botmasterai/botmaster-context-session-ware/issues"
+  },
+  "homepage": "https://github.com/botmasterai/botmaster-context-session-ware#readme"
+}
