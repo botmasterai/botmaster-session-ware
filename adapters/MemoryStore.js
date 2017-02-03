@@ -22,7 +22,8 @@ class MemoryStore {
      *  @return {Promise}
      */
     set(id, value) {
-        return Promise.resolve(this.store[id] = value);
+        this.store[id] = value;
+        return Promise.resolve();
     }
 }
 
