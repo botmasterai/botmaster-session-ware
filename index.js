@@ -3,12 +3,12 @@ const Debug = require('debug');
 
 /**
  * Create an object providing incoming and outgoing middleware
- * @param {Object} [options] 
+ * @param {Object} [options]
  * @param  {Object} [adapter] an object implementing the adapter api. defaults to in memory.
  * @param  {String} [sessionPath] dot denoted path to where to store the context in the update. defaults to 'session'
  * @return {Object} an object that contains two functions 'incoming' and 'outgoing'. The incoming should be placed before any middleware that requires it and the outgoing should be placed after all middleware have used it.
  */
-const SessionWare = ({adapter, sessionPath='session'}) => {
+const SessionWare = ({adapter, sessionPath='session'} ={}) => {
     sessionPath = sessionPath.split('.');
     let store;
     if (adapter) {
