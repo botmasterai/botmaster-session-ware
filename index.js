@@ -34,7 +34,7 @@ const SessionWare = ({adapter, sessionPath='session'} ={}) => {
     const outgoing = (bot, update, next) => {
         const sessionPathLens = R.lensPath(sessionPath);
         const session = R.view(sessionPathLens, update);
-        store.set(update.recipient.id, session).then(() => {
+        store.set(update.sender.id, session).then(() => {
             Debug('botmaster:session:outgoing')(`updated session for ${update.sender.id}`);
             delete update.context;
             next();
