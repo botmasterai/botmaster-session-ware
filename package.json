@@ -1,14 +1,15 @@
 {
-  "name": "botmaster-context-session-ware",
+  "name": "botmaster-session-ware",
   "version": "0.0.1",
-  "description": "standard botmaster session ware for context",
+  "description": "botmaster session ware for storing context",
   "main": "index.js",
   "scripts": {
+    "docs": "documentation-readme -s \"API Usage\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/botmasterai/botmaster-context-session-ware.git"
+    "url": "git+https://github.com/botmasterai/botmaster-mem-session-ware.git"
   },
   "keywords": [
     "botmaster",
@@ -20,7 +21,7 @@
   "author": "Jonathan R Wickens",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/botmasterai/botmaster-context-session-ware/issues"
+    "url": "https://github.com/botmasterai/botmaster-mem-session-ware/issues"
   },
-  "homepage": "https://github.com/botmasterai/botmaster-context-session-ware#readme"
+  "homepage": "https://github.com/botmasterai/botmaster-mem-session-ware#readme"
 }
