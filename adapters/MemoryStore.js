@@ -12,7 +12,7 @@ class MemoryStore {
      * @returns {Promise} evaluates to an object that is the  session
      */
     get(id) {
-        return Promise.resolve(this.store[id]);
+        return Promise.resolve(this.store[id] || {});
     }
 
     /**

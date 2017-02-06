@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/botmasterai/botmaster-session-ware.svg?branch=master)](https://travis-ci.org/botmasterai/botmaster-session-ware)
+
 # Botmaster Session Ware
 
 A configurable botmaster ware to provide session data to downstream middleware.
@@ -46,7 +48,7 @@ Update a session in the storage.
 -   `id` **String** a unique id for the session
 -   `value` **Object** the new value for the session
 
-Returns **Promise** 
+Returns **Promise**
 
 ### SessionWare
 
@@ -54,7 +56,7 @@ Create an object providing incoming and outgoing middleware
 
 **Parameters**
 
--   `options` **[Object]** 
+-   `options` **[Object]**
 -   `adapter` **[Object]** an object implementing the adapter api. defaults to in memory.
 -   `sessionPath` **[String]** dot denoted path to where to store the context in the update. defaults to 'session'
 -   `$0`  

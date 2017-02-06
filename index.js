@@ -13,6 +13,8 @@ const SessionWare = ({adapter, sessionPath='session'} ={}) => {
     let store;
     if (adapter) {
         store = adapter;
+        if (typeof store.get !== 'function' || typeof store.set !== 'function') 
+            throw new Error('Adapter does not have required methods get and/or set');
     }
     else {
         const MemoryStore = require('./adapters/MemoryStore');
