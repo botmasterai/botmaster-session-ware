@@ -1,6 +1,6 @@
 {
   "name": "botmaster-session-ware",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "botmaster session ware for storing context",
   "main": "index.js",
   "scripts": {
