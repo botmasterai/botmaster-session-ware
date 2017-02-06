@@ -3,17 +3,18 @@ const Debug = require('debug');
 
 /**
  * Create an object providing incoming and outgoing middleware
- * @param {Object} [options]
- * @param  {Object} [adapter] an object implementing the adapter api. defaults to in memory.
- * @param  {String} [sessionPath] dot denoted path to where to store the context in the update. defaults to 'session'
+ * @param {Object} [options] options object for generated sessionWare
+ * @param {Object} [options.adapter] an object implementing the adapter api. defaults to in memory.
+ * @param {String} [options.sessionPath] dot denoted path to where to store the context in the update. defaults to 'session'
  * @return {Object} an object that contains two functions 'incoming' and 'outgoing'. The incoming should be placed before any middleware that requires it and the outgoing should be placed after all middleware have used it.
  */
-const SessionWare = ({adapter, sessionPath='session'} ={}) => {
+const SessionWare = (options) => {
+    let {sessionPath = 'session', adapter} = options || {};
     sessionPath = sessionPath.split('.');
     let store;
     if (adapter) {
         store = adapter;
-        if (typeof store.get !== 'function' || typeof store.set !== 'function') 
+        if (typeof store.get !== 'function' || typeof store.set !== 'function')
             throw new Error('Adapter does not have required methods get and/or set');
     }
     else {

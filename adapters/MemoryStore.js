@@ -1,5 +1,6 @@
 /**
  * The most basic adapter ever for SessionWare
+ * @class
  */
 class MemoryStore {
     constructor() {
@@ -19,7 +20,7 @@ class MemoryStore {
      *  Update a session in the storage.
      *  @param {String} id a unique id for the session
      *  @param {Object} value the new value for the session
-     *  @return {Promise}
+     *  @return {Promise} resolves when the session has been saved
      */
     set(id, value) {
         this.store[id] = value;

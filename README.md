@@ -48,7 +48,7 @@ Update a session in the storage.
 -   `id` **String** a unique id for the session
 -   `value` **Object** the new value for the session
 
-Returns **Promise**
+Returns **Promise** resolves when the session has been saved
 
 ### SessionWare
 
@@ -56,11 +56,8 @@ Create an object providing incoming and outgoing middleware
 
 **Parameters**
 
--   `options` **[Object]**
--   `adapter` **[Object]** an object implementing the adapter api. defaults to in memory.
--   `sessionPath` **[String]** dot denoted path to where to store the context in the update. defaults to 'session'
--   `$0`  
-    -   `$0.adapter`  
-    -   `$0.sessionPath`  
+-   `options` **[Object]** options object for generated sessionWare
+    -   `options.adapter` **[Object]** an object implementing the adapter api. defaults to in memory.
+    -   `options.sessionPath` **[String]** dot denoted path to where to store the context in the update. defaults to 'session'
 
 Returns **Object** an object that contains two functions 'incoming' and 'outgoing'. The incoming should be placed before any middleware that requires it and the outgoing should be placed after all middleware have used it.
