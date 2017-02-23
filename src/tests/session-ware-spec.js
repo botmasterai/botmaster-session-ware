@@ -28,10 +28,11 @@ describe('SessionWare', () => {
         const update = { sender: {id: 1}};
         const newUpdate = R.clone(update);
         const bot = {type: 'not a real bot'};
-        sessionWare.incoming(bot, update, (err => {
+        const message = { recipient: {id: 2}};
+        sessionWare.incoming(bot, update, err => {
             if (err) throw err;
             update.session.a = 123;
-            sessionWare.outgoing(bot, update, err => {
+            sessionWare.outgoing(bot, update, message, err => {
                 if (err) throw err;
                 sessionWare.incoming(bot, newUpdate, err => {
                     if (err) throw err;
@@ -39,7 +40,7 @@ describe('SessionWare', () => {
                     done();
                 });
             });
-        }));
+        });
     });
 
     it('should throw an error if the specified adapter does not have get or set methods', done => {

@@ -1,6 +1,9 @@
 const R = require('ramda');
 const Debug = require('debug');
 
+const recipient = R.path(['recipient', 'id']);
+const sender = R.path(['sender', 'id']);
+const idFromUpdate = update => `recipient:${recipient(update)}-sender:${sender(update)}`;
 /**
  * Create an object providing incoming and outgoing middleware
  * @param {Object} [options] options object for generated sessionWare
@@ -23,8 +26,8 @@ const SessionWare = (options) => {
     }
 
     const incoming = (bot, update, next) => {
-        store.get(update.sender.id).then( session => {
-            Debug('botmaster:session:incoming')(`got session for ${update.sender.id}`);
+        store.get(idFromUpdate(update)).then( session => {
+            Debug('botmaster:session:incoming')(`got session for ${idFromUpdate(update)}`);
             const sessionPathLens = R.lensPath(sessionPath.splice(1));
             update[sessionPath[0]] = R.set(sessionPathLens, session, update);
             next();
@@ -34,12 +37,11 @@ const SessionWare = (options) => {
         });
     };
 
-    const outgoing = (bot, update, next) => {
+    const outgoing = (bot, update, messsage, next) => {
         const sessionPathLens = R.lensPath(sessionPath);
         const session = R.view(sessionPathLens, update);
-        store.set(update.sender.id, session).then(() => {
-            Debug('botmaster:session:outgoing')(`updated session for ${update.sender.id}`);
-            delete update.context;
+        store.set(idFromUpdate(update), session).then(() => {
+            Debug('botmaster:session:outgoing')(`updated session for ${idFromUpdate(update)}`);
             next();
         });
     };
