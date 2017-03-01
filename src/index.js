@@ -1,5 +1,6 @@
 const R = require('ramda');
 const Debug = require('debug');
+const assert = require('assert');
 
 const recipient = R.path(['recipient', 'id']);
 const sender = R.path(['sender', 'id']);
