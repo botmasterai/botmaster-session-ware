@@ -2,6 +2,7 @@
 
 var R = require('ramda');
 var Debug = require('debug');
+var assert = require('assert');
 
 var recipient = R.path(['recipient', 'id']);
 var sender = R.path(['sender', 'id']);
