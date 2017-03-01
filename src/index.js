@@ -38,6 +38,7 @@ const SessionWare = (options) => {
     };
 
     const outgoing = (bot, update, messsage, next) => {
+        assert(typeof next == 'function', 'please ensure you have the correct version of botmaster');
         const sessionPathLens = R.lensPath(sessionPath);
         const session = R.view(sessionPathLens, update);
         store.set(idFromUpdate(update), session).then(() => {
