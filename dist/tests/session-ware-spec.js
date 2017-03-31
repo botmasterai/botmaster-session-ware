@@ -8,16 +8,18 @@ describe('SessionWare', function () {
     it('should export incoming and outgoing ware', function () {
         var sessionWare = SessionWare();
         sessionWare.should.have.property('incoming');
-        sessionWare.incoming.should.be.type('function');
+        sessionWare.incoming.should.be.type('object');
+        sessionWare.incoming.controller.should.be.type('function');
         sessionWare.should.have.property('outgoing');
-        sessionWare.outgoing.should.be.type('function');
+        sessionWare.outgoing.should.be.type('object');
+        sessionWare.outgoing.controller.should.be.type('function');
     });
 
     it('should populate update with defined sessionPath', function (done) {
         var sessionWare = SessionWare({ sessionPath: 'session.context' });
         var update = { sender: { id: 1 } };
         var bot = { type: 'not a real bot' };
-        sessionWare.incoming(bot, update, function (err) {
+        sessionWare.incoming.controller(bot, update, function (err) {
             if (err) throw err;
             update.session.should.have.property('context');
             done();
@@ -30,12 +32,12 @@ describe('SessionWare', function () {
         var newUpdate = R.clone(update);
         var bot = { type: 'not a real bot' };
         var message = { recipient: { id: 2 } };
-        sessionWare.incoming(bot, update, function (err) {
+        sessionWare.incoming.controller(bot, update, function (err) {
             if (err) throw err;
             update.session.a = 123;
-            sessionWare.outgoing(bot, update, message, function (err) {
+            sessionWare.outgoing.controller(bot, update, message, function (err) {
                 if (err) throw err;
-                sessionWare.incoming(bot, newUpdate, function (err) {
+                sessionWare.incoming.controller(bot, newUpdate, function (err) {
                     if (err) throw err;
                     newUpdate.session.a.should.be.equal(123);
                     done();

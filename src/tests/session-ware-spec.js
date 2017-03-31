@@ -6,16 +6,18 @@ describe('SessionWare', () => {
     it('should export incoming and outgoing ware', () => {
         const sessionWare = SessionWare();
         sessionWare.should.have.property('incoming');
-        sessionWare.incoming.should.be.type('function');
+        sessionWare.incoming.should.be.type('object');
+        sessionWare.incoming.controller.should.be.type('function');
         sessionWare.should.have.property('outgoing');
-        sessionWare.outgoing.should.be.type('function');
+        sessionWare.outgoing.should.be.type('object');
+        sessionWare.outgoing.controller.should.be.type('function');
     });
 
     it('should populate update with defined sessionPath', done => {
         const sessionWare = SessionWare({sessionPath: 'session.context'});
         const update = { sender: {id: 1}};
         const bot = {type: 'not a real bot'};
-        sessionWare.incoming(bot, update, (err => {
+        sessionWare.incoming.controller(bot, update, (err => {
             if (err) throw err;
             update.session.should.have.property('context');
             done();
@@ -29,12 +31,12 @@ describe('SessionWare', () => {
         const newUpdate = R.clone(update);
         const bot = {type: 'not a real bot'};
         const message = { recipient: {id: 2}};
-        sessionWare.incoming(bot, update, err => {
+        sessionWare.incoming.controller(bot, update, err => {
             if (err) throw err;
             update.session.a = 123;
-            sessionWare.outgoing(bot, update, message, err => {
+            sessionWare.outgoing.controller(bot, update, message, err => {
                 if (err) throw err;
-                sessionWare.incoming(bot, newUpdate, err => {
+                sessionWare.incoming.controller(bot, newUpdate, err => {
                     if (err) throw err;
                     newUpdate.session.a.should.be.equal(123);
                     done();
