@@ -42,7 +42,8 @@ Adapters should be provided in their own package. Their api must follow the Memo
 ### SessionWare
 
 Create an object providing incoming and outgoing middleware that manages a 
-session object for you. By using this middleware,
+session object for you. By using this middleware, your other middleware will
+have access to a persisted `update.session` object.
 
 **Parameters**
 

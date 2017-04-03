@@ -7,7 +7,9 @@ const sender = R.path(['sender', 'id']);
 const idFromUpdate = update => `recipient:${recipient(update)}-sender:${sender(update)}`;
 /**
  * Create an object providing incoming and outgoing middleware that manages a 
- * session object for you. By using this middleware, 
+ * session object for you. By using this middleware, your other middleware will
+ * have access to a persisted `update.session` object.
+ *
  * @param {Object} [options] options object for generated sessionWare
  * @param {Object} [options.adapter] an object implementing the adapter api. defaults to in MemoryStore.
  * @param {String} [options.sessionPath] dot denoted path to where to store the context in the update. defaults to 'session'
