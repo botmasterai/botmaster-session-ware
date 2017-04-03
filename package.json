@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/botmasterai/botmaster-mem-session-ware.git"
+    "url": "git+https://github.com/botmasterai/botmaster-session-ware.git"
   },
   "keywords": [
     "botmaster",
@@ -26,12 +26,12 @@
   "author": "Jonathan R Wickens",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/botmasterai/botmaster-mem-session-ware/issues"
+    "url": "https://github.com/botmasterai/botmaster-session-ware/issues"
   },
   "peerDependencies": {
-    "botmaster": ">=2.3.0"
+    "botmaster": "^3.0.7"
   },
-  "homepage": "https://github.com/botmasterai/botmaster-mem-session-ware#readme",
+  "homepage": "https://github.com/botmasterai/botmaster-session-ware#readme",
   "devDependencies": {
     "babel-cli": "^6.22.2",
     "babel-preset-es2015": "^6.22.0",

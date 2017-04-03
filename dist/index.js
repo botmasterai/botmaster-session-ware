@@ -32,26 +32,32 @@ var SessionWare = function SessionWare(options) {
         store = new MemoryStore();
     }
 
-    var incoming = function incoming(bot, update, next) {
-        store.get(idFromUpdate(update)).then(function (session) {
-            Debug('botmaster:session:incoming')('got session for ' + idFromUpdate(update));
-            var sessionPathLens = R.lensPath(sessionPath.splice(1));
-            update[sessionPath[0]] = R.set(sessionPathLens, session, update);
-            next();
-        }).catch(function (err) {
-            Debug('botmaster:session:incoming')('error ' + err.message);
-            next(err);
-        });
+    var incoming = {
+        type: 'incoming',
+        controller: function controller(bot, update, next) {
+            store.get(idFromUpdate(update)).then(function (session) {
+                Debug('botmaster:session:incoming')('got session for ' + idFromUpdate(update));
+                var sessionPathLens = R.lensPath(sessionPath.splice(1));
+                update[sessionPath[0]] = R.set(sessionPathLens, session, update);
+                next();
+            }).catch(function (err) {
+                Debug('botmaster:session:incoming')('error ' + err.message);
+                next(err);
+            });
+        }
     };
 
-    var outgoing = function outgoing(bot, update, messsage, next) {
-        assert(typeof next == 'function', 'please ensure you have the correct version of botmaster');
-        var sessionPathLens = R.lensPath(sessionPath);
-        var session = R.view(sessionPathLens, update);
-        store.set(idFromUpdate(update), session).then(function () {
-            Debug('botmaster:session:outgoing')('updated session for ' + idFromUpdate(update));
-            next();
-        });
+    var outgoing = {
+        type: 'outgoing',
+        controller: function controller(bot, update, message, next) {
+            assert(typeof next == 'function', 'please ensure you have the correct version of botmaster');
+            var sessionPathLens = R.lensPath(sessionPath);
+            var session = R.view(sessionPathLens, update);
+            store.set(idFromUpdate(update), session).then(function () {
+                Debug('botmaster:session:outgoing')('updated session for ' + idFromUpdate(update));
+                next();
+            });
+        }
     };
 
     return { incoming: incoming, outgoing: outgoing };

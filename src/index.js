@@ -26,27 +26,33 @@ const SessionWare = (options) => {
         store = new MemoryStore();
     }
 
-    const incoming = (bot, update, next) => {
-        store.get(idFromUpdate(update)).then( session => {
-            Debug('botmaster:session:incoming')(`got session for ${idFromUpdate(update)}`);
-            const sessionPathLens = R.lensPath(sessionPath.splice(1));
-            update[sessionPath[0]] = R.set(sessionPathLens, session, update);
-            next();
-        }).catch(err => {
-            Debug('botmaster:session:incoming')(`error ${err.message}`);
-            next(err);
-        });
-    };
+    const incoming = {
+        type: 'incoming',
+        controller: (bot, update, next) => {
+            store.get(idFromUpdate(update)).then( session => {
+                Debug('botmaster:session:incoming')(`got session for ${idFromUpdate(update)}`);
+                const sessionPathLens = R.lensPath(sessionPath.splice(1));
+                update[sessionPath[0]] = R.set(sessionPathLens, session, update);
+                next();
+            }).catch(err => {
+                Debug('botmaster:session:incoming')(`error ${err.message}`);
+                next(err);
+            });
+        }
+    }
 
-    const outgoing = (bot, update, messsage, next) => {
-        assert(typeof next == 'function', 'please ensure you have the correct version of botmaster');
-        const sessionPathLens = R.lensPath(sessionPath);
-        const session = R.view(sessionPathLens, update);
-        store.set(idFromUpdate(update), session).then(() => {
-            Debug('botmaster:session:outgoing')(`updated session for ${idFromUpdate(update)}`);
-            next();
-        });
-    };
+    const outgoing = {
+        type: 'outgoing',
+        controller: (bot, update, message, next) => {
+            assert(typeof next == 'function', 'please ensure you have the correct version of botmaster');
+            const sessionPathLens = R.lensPath(sessionPath);
+            const session = R.view(sessionPathLens, update);
+            store.set(idFromUpdate(update), session).then(() => {
+                Debug('botmaster:session:outgoing')(`updated session for ${idFromUpdate(update)}`);
+                next();
+            });
+        }
+    }
 
     return {incoming, outgoing};
 };
