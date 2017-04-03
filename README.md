@@ -22,7 +22,7 @@ botmaster.use({
     // and will contain the last message upon all the next iterations
     console.log(update.session);
 
-    update.session.message = update.lastMessage;
+    update.session.lastMessage = update.message;
   }
 })
 .
