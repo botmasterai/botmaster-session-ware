@@ -1,5 +1,9 @@
 /**
- * The most basic adapter ever for SessionWare
+ * The most basic adapter ever for SessionWare. This is the default store that is
+ * used when instantiating a SessionWare object without any params.
+ * It provides the standard required API for stores. I.e. a getter and a setter method.
+ * Called `get` and `set` that both return promises where get resolves with the session
+ * value and set sets the session value
  * @class
  */
 class MemoryStore {

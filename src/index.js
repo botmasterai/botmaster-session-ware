@@ -6,11 +6,13 @@ const recipient = R.path(['recipient', 'id']);
 const sender = R.path(['sender', 'id']);
 const idFromUpdate = update => `recipient:${recipient(update)}-sender:${sender(update)}`;
 /**
- * Create an object providing incoming and outgoing middleware
+ * Create an object providing incoming and outgoing middleware that manages a 
+ * session object for you. By using this middleware, 
  * @param {Object} [options] options object for generated sessionWare
- * @param {Object} [options.adapter] an object implementing the adapter api. defaults to in memory.
+ * @param {Object} [options.adapter] an object implementing the adapter api. defaults to in MemoryStore.
  * @param {String} [options.sessionPath] dot denoted path to where to store the context in the update. defaults to 'session'
- * @return {Object} an object that contains two functions 'incoming' and 'outgoing'. The incoming should be placed before any middleware that requires it and the outgoing should be placed after all middleware have used it.
+ * @return {Object} an object that contains two functions 'incoming' and 'outgoing'.
+ * They should be used with the useWrapped method of botmaster
  */
 const SessionWare = (options) => {
     let {sessionPath = 'session', adapter} = options || {};
