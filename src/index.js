@@ -32,6 +32,7 @@ const SessionWare = (options) => {
 
     const incoming = {
         type: 'incoming',
+        name: 'session-ware-wrapped-incoming',
         controller: (bot, update, next) => {
             store.get(idFromUpdate(update)).then( session => {
                 Debug('botmaster:session:incoming')(`got session for ${idFromUpdate(update)}`);
@@ -47,6 +48,7 @@ const SessionWare = (options) => {
 
     const outgoing = {
         type: 'outgoing',
+        name: 'session-ware-wrapped-outgoing',
         controller: (bot, update, message, next) => {
             assert(typeof next == 'function', 'please ensure you have the correct version of botmaster');
             const sessionPathLens = R.lensPath(sessionPath);

@@ -11,7 +11,9 @@ var idFromUpdate = function idFromUpdate(update) {
 };
 /**
  * Create an object providing incoming and outgoing middleware that manages a 
- * session object for you. By using this middleware, 
+ * session object for you. By using this middleware, your other middleware will
+ * have access to a persisted `update.session` object.
+ *
  * @param {Object} [options] options object for generated sessionWare
  * @param {Object} [options.adapter] an object implementing the adapter api. defaults to in MemoryStore.
  * @param {String} [options.sessionPath] dot denoted path to where to store the context in the update. defaults to 'session'
@@ -36,6 +38,7 @@ var SessionWare = function SessionWare(options) {
 
     var incoming = {
         type: 'incoming',
+        name: 'session-ware-wrapped-incoming',
         controller: function controller(bot, update, next) {
             store.get(idFromUpdate(update)).then(function (session) {
                 Debug('botmaster:session:incoming')('got session for ' + idFromUpdate(update));
@@ -51,6 +54,7 @@ var SessionWare = function SessionWare(options) {
 
     var outgoing = {
         type: 'outgoing',
+        name: 'session-ware-wrapped-outgoing',
         controller: function controller(bot, update, message, next) {
             assert(typeof next == 'function', 'please ensure you have the correct version of botmaster');
             var sessionPathLens = R.lensPath(sessionPath);

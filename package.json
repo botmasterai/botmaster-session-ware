@@ -4,13 +4,13 @@
   "description": "botmaster session ware for storing context",
   "main": "dist/index.js",
   "scripts": {
-    "pretest": "npm run build",
+    "pretest": "yarn build",
     "test": "istanbul cover _mocha -- --recursive dist/tests",
     "tests": "mocha --recursive src/tests",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "build": "mkdir -p dist && babel --presets=es2015 src --out-dir dist",
     "docs": "documentation readme src/index.js --section=\"API\"",
-    "prepublish": "npm run build",
+    "prepublish": "yarn build",
     "postversion": "git push && git push --tags"
   },
   "repository": {
