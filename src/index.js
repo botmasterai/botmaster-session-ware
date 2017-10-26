@@ -53,6 +53,11 @@ const SessionWare = (options) => {
             assert(typeof next == 'function', 'please ensure you have the correct version of botmaster');
             const sessionPathLens = R.lensPath(sessionPath);
             const session = R.view(sessionPathLens, update);
+            // if we cannot find the session do not try to set it. This might happen if other middleware sends
+            // another message without sending on the session
+            if (!session) {
+                return next();
+            }
             store.set(idFromUpdate(update), session).then(() => {
                 Debug('botmaster:session:outgoing')(`updated session for ${idFromUpdate(update)}`);
                 next();
